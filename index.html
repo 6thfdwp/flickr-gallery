@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Flickr Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+  <link rel="stylesheet" href="css/bootstrap-image-gallery.min.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <header class="navbar navbar-static-top" role="banner">
+      <div id='search-box' class="col-md-12">
+         <span class="heading-text">#</span>
+         <input type="text" class="hashtag heading-text" placeholder="Search" />
+     </div>
+  </header>
+
+  <!-- Begin Body -->
+  <div class="container">
+    <div id="thumbnails">
+      <script type="text/template" id="thumbnail-tpl">
+       <a href="<%= link %>" title="<%= title %>" data-gallery>
+         <img src="<%= imgUrl %>">
+       </a>
+      </script>
+    </div>
+
+    <div class="spinner hide">
+      <img src="images/scroll-loading.gif">
+    </div>
+  </div>
+
+  <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+  <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-use-bootstrap-modal="false">
+      <!-- The container for the modal slides -->
+      <div class="slides"></div>
+      <!-- Controls for the borderless lightbox -->
+      <h3 class="title"></h3>
+      <a class="prev">‹</a>
+      <a class="next">›</a>
+      <a class="close">×</a>
+      <a class="play-pause"></a>
+      <ol class="indicator"></ol>
+      <!-- The modal dialog, which will be used to wrap the lightbox content -->
+  </div>
+
+
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="http://documentcloud.github.com/underscore/underscore.js"></script>
+  <script src="http://documentcloud.github.com/backbone/backbone.js"></script>
+  <script src="https://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+  <script src="js/bootstrap-image-gallery.min.js"></script>
+
+  <script src="js/ajaxmask.js"></script>
+  <script src="js/models/Photo.js"></script>
+  <script src="js/collections/Photos.js"></script>
+  <script src="js/views/searchbox.js"></script>
+  <script src="js/views/FlickrGallery.js"></script>
+
+  <script type="text/javascript">
+
+  </script>
+</body>
+</html>

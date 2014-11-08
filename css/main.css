@@ -1,0 +1,49 @@
+body{
+    background-color: #222;
+}
+
+input.hashtag{
+  text-align:left;
+  box-shadow:none;
+  border:none;
+  border-bottom:1px dotted #555;
+  max-width:90%;
+  width: 100%;
+  background-color: #222;
+}
+.heading-text{
+  font-size: 40px;
+  font-weight:200;
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: -1px;
+  color: #555;
+}
+
+.ajax-mask {
+  background: #333;
+  opacity: 0.8;
+  z-index: 10000;
+}
+
+.ajax-mask .loading {
+  width: 130px;
+  height: 130px;
+  background: #343838 url('../images/loading.gif') center center no-repeat;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  position: relative;
+  left:50%;
+  margin-left:-25px;
+  top:50%;
+  margin-top: -25px;
+  opacity: 0.9;
+  -moz-opacity: 0.9;
+}
+
+.spinner {
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    margin: 20px;
+}
