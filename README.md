@@ -3,7 +3,7 @@ flickr-gallery
 
 A Backbone image gallery using flickr search api
 
-### Requirements
+Requirements
 ==============
 jQuery v1.10.0   
 Bootstrap v3.3.0   
@@ -11,7 +11,7 @@ Bootstrap v3.3.0
 Underscore.js   
 Backbone   
 
-### Features
+Features
 ==============
 Search by tags   
 Infinite photo stream   
