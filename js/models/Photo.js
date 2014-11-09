@@ -2,7 +2,7 @@ var app = app || {};
 
 (function() {
     /**
-     * Model class representing photo information 
+     * Model class represents photo information 
      * 
      */
     app.Photo = Backbone.Model.extend({
@@ -44,7 +44,7 @@ var app = app || {};
         },
 
         sync: function(method, collection, options) {
-            // merge options passed in if exists
+            // merge options passed with flickr query params
             _.extend(this.params, options);
             Backbone.sync(method, collection, this.params);
         }

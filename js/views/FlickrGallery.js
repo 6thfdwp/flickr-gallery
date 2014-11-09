@@ -1,8 +1,11 @@
 var app = app || {};
 
 (function() {
+    /**
+     * View class represents flickr photo wall
+     * backed by Photos collection
+     */
     var FlickrGallery = Backbone.View.extend({
-        //el: '#thumbnails',
         el: $(document),
         tpl: _.template( $('#thumbnail-tpl').html() ),
         //photoInfoTpl: _.template( $('#photoinfo-tpl').html() ),
@@ -15,6 +18,7 @@ var app = app || {};
         initialize: function(options) {
             this._curPage = 1;
 
+            // reference to the related element
             this.$thumbnails = this.$('#thumbnails');
             this.$galleryAuthor = this.$('#blueimp-gallery .author');
             this.$photoViews = this.$('#blueimp-gallery .views .vnumber');
@@ -36,14 +40,11 @@ var app = app || {};
         render: function() {
             var imgItems = [];
             this.$thumbnails.empty();
-            this._curPage = 1;
+            this._curPage = 1; // reset to 1 when collection is reset
 
-            console.dir('first fetched photos: ' + this.collection.length);
             this.collection.each(function(photo) {
-                //console.info(photo.attributes);
                 imgItems.push( this.tpl(photo.toJSON()) );
             }, this);
-            //this.$el.append(imgItems);
             this.$thumbnails.append(imgItems);
         },
 
@@ -56,6 +57,7 @@ var app = app || {};
                 this._curPage += 1;
                 // fetch next page of photos, will automatically call
                 // collection.set when response is returned successfully
+                // trigger each model's add event
                 this.collection.fetch({
                     remove: false,
                     params: {
@@ -71,18 +73,32 @@ var app = app || {};
          *
          * @param {Collection} photos that issues 'fetch' request
          * @param {JSON} resp that returned by flickr api
-         * @param {Object} options that used in collection.fetch
+         * @param {Object} options that passed in collection.fetch
          */
         onSync: function(photos, resp, options) {
-            console.dir('photoes fetched');
             this.$thumbnails.ajaxMask( {stop: true} );
         },
 
+        /**
+         * Triggered when new model added to collection
+         * collection.reset won't trigger this event
+         *
+         * @param {Model} photo that is newly added
+         * @param {Collection} photos
+         * @param {Object} options that passed in collection.fetch
+         */
         onAdd: function(photo, photos, options) {
-            console.dir('photo model added to collection');
+            //console.dir('photo model added to collection');
             this.$thumbnails.append( this.tpl(photo.toJSON()) );
         },
 
+        /**
+         * Trigger when switching between photos in the slide show
+         *
+         * @param {event} e
+         * @param {int} idx the index of current photo
+         * @param {html element} slide
+         */
         onSlide: function(e, idx, slide) {
             var photo = this.collection.at(idx);
             if (photo.get('author') != undefined) {
@@ -90,10 +106,7 @@ var app = app || {};
                 return;
             }
             // fetch the photo info
-            photo.fetch({
-                //success: function(photo, resp, options) {
-                //}
-            });
+            photo.fetch();
             //photo.fetchFaves();
         },
 
@@ -101,7 +114,6 @@ var app = app || {};
         renderPhotoInfo: function(photo) {
             var author = photo.get('author');
             var pstreamUrl = ['https://www.flickr.com/photos/', photo.get('nsid')].join('');
-            console.dir(author);
             this.$galleryAuthor
                 .text('by ' + author).attr('href', pstreamUrl);
             this.$photoViews.text( photo.get('views') + ' views')

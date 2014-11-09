@@ -2,6 +2,10 @@ var app = app || {};
 
 (function() {
 
+    /**
+     * View represents search by tags area
+     *
+     */
     var SearchBox = Backbone.View.extend({
         el: '#search-box',
         events: {
@@ -10,9 +14,7 @@ var app = app || {};
         },
 
         initialize: function() {
-            //this.$('.glyphicon-search').click(function() {
-                //alert('kkk');
-            //});
+
         },
         
         onInputEnter: function(e) {
@@ -24,7 +26,6 @@ var app = app || {};
         search: function() {
             var tags = this.$('input').val();
             if ( !tags.trim() ) {
-                //alert('tags needed');
                 return;
             }
             app.flickrGallery.$thumbnails.ajaxMask();

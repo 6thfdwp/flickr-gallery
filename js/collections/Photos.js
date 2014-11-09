@@ -21,30 +21,32 @@ var app = app || {};
         },
 
         /**
-         * override Extract attributes required by Photo model
+         * @Override Backbone.Collection.parse
          *
-         * @param {JSON} response returned through Flickr rest API
-         * @return {array} of photo objects
+         * Extract attributes required by Photo model
+         *
+         * @param {JSON} response returned by Flickr search API
+         * @return {array} of photo objects literal
          */
         parse: function(response) {
-            console.info('page ' + response.photos.page);
-            console.info('pages ' + response.photos.pages);
-            console.info('total ' + response.photos.total);
+            //console.info('page ' + response.photos.page);
+            //console.info('pages ' + response.photos.pages);
+            //console.info('total ' + response.photos.total);
             console.info('fetched photos: ' + response.photos.photo.length);
 
             return response.photos.photo;
         },
 
         /**
-         * Override Backbone sync to merge the query params
-         * before issuing ajax request
+         * @Override Backbone.sync 
+         * Merge query params before issuing ajax request
          *
          * @param {Object} options that passed to collection fetch method
          *
-         *  The properties in options can be divided to two parts
-         *  {Object} params: for flickr search api use
-         *  others: used to tell Backbone how to change the underlying
-         *      collection after response returned
+         * The properties in options can be divided to two parts
+         * {Object} params: for flickr search api use
+         * {Object} others: tell Backbone how to change the underlying
+         *     collection after response returned
          */
         sync: function(method, collection, options) {
             if (options.params) {
