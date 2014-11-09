@@ -17,7 +17,9 @@
         if (!settings.stop) {
           var loadingDiv = $('<div class="ajax-mask"><div class="loading"></div></div>')
             .css({ 
-              'position': 'absolute',
+                // original is absolute, but the mask width is 0 
+                // when there is fixed top navbar
+              'position': 'fixed', 
               'top': 0,
               'left':0,
               'width':'100%',

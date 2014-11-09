@@ -13,14 +13,9 @@ var app = app || {};
         },
 
         initialize: function(options) {
-            //this.$el.jscroll();
             this._curPage = 1;
 
             this.$thumbnails = this.$('#thumbnails');
-            this.$thumbnails.ajaxMask();
-            // initial fetching when page first loaded
-            app.photos.fetch({reset: true});
-
             this.$galleryAuthor = this.$('#blueimp-gallery .author');
             this.$photoViews = this.$('#blueimp-gallery .views .vnumber');
 
@@ -28,6 +23,10 @@ var app = app || {};
             this.listenTo(this.collection, 'sync', this.onSync);
             this.listenTo(this.collection, 'add', this.onAdd);
             this.listenTo(this.collection, 'change', this.renderPhotoInfo);
+
+            this.$thumbnails.ajaxMask();
+            // initial fetching when page first loaded
+            app.photos.fetch({reset: true});
         },
 
         /**
@@ -62,9 +61,6 @@ var app = app || {};
                     params: {
                         page: this._curPage
                     },
-                    success: function() {
-                        //
-                    }
                 });
             }
         },
