@@ -39,12 +39,16 @@ var app = app || {};
          * Override Backbone sync to merge the query params
          * before issuing ajax request
          *
-         * @param {object} options passed to collection fetch method
-         * 
+         * @param {Object} options that passed to collection fetch method
+         *
+         *  The properties in options can be divided to two parts
+         *  {Object} params: for flickr search api use
+         *  others: used to tell Backbone how to change the underlying
+         *      collection after response returned
          */
         sync: function(method, collection, options) {
             if (options.params) {
-                // merge more params (tags etc.) for flickr search api
+                // merge more params (tags, page etc.) for flickr search api
                 _.extend(this.params.data, options.params);
             }
             _.extend(this.params, options); 

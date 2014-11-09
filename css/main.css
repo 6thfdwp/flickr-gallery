@@ -1,5 +1,6 @@
 body{
     background-color: #222;
+    padding-top: 70px; /* make some space with fixed top navbar */
 }
 
 input.hashtag{
@@ -24,7 +25,6 @@ input.hashtag{
   opacity: 0.8;
   z-index: 10000;
 }
-
 .ajax-mask .loading {
   width: 130px;
   height: 130px;
@@ -32,13 +32,34 @@ input.hashtag{
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
-  position: relative;
+  position: fixed; /* put loading in the center of the screen instead of document*/
   left:50%;
   margin-left:-25px;
   top:50%;
   margin-top: -25px;
-  opacity: 0.9;
+  opacity: 0.6;
   -moz-opacity: 0.9;
+}
+
+#blueimp-gallery .author {
+    position: absolute;
+    top: 30px;
+    left: 15px;
+    font-style: italic;
+    font-weight: bold;
+    color: #555;
+    margin-top: 15px;
+}
+#blueimp-gallery .views {
+    position: absolute;
+    bottom: 8px;
+    right: 60px;
+    border-color: black;
+    background-color: black;
+    color: #fff;
+}
+#blueimp-gallery .vnumber {
+    margin-left: 5px;
 }
 
 .spinner {

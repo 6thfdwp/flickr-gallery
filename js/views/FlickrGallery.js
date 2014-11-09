@@ -5,6 +5,8 @@ var app = app || {};
         //el: '#thumbnails',
         el: $(document),
         tpl: _.template( $('#thumbnail-tpl').html() ),
+        //photoInfoTpl: _.template( $('#photoinfo-tpl').html() ),
+
         events: {
             'scroll': 'loadMore',
             'slide #blueimp-gallery': 'onSlide'
@@ -14,14 +16,18 @@ var app = app || {};
             //this.$el.jscroll();
             this._curPage = 1;
 
-            this.$gallery = this.$('#thumbnails');
-            this.$gallery.ajaxMask();
+            this.$thumbnails = this.$('#thumbnails');
+            this.$thumbnails.ajaxMask();
             // initial fetching when page first loaded
-            app.photos.fetch({reset: true})
+            app.photos.fetch({reset: true});
+
+            this.$galleryAuthor = this.$('#blueimp-gallery .author');
+            this.$photoViews = this.$('#blueimp-gallery .views .vnumber');
 
             this.listenTo(this.collection, 'reset', this.render);
-            this.listenTo(this.collection, 'sync', this.onSync)
+            this.listenTo(this.collection, 'sync', this.onSync);
             this.listenTo(this.collection, 'add', this.onAdd);
+            this.listenTo(this.collection, 'change', this.renderPhotoInfo);
         },
 
         /**
@@ -30,7 +36,7 @@ var app = app || {};
          */
         render: function() {
             var imgItems = [];
-            this.$gallery.empty();
+            this.$thumbnails.empty();
             this._curPage = 1;
 
             console.dir('first fetched photos: ' + this.collection.length);
@@ -39,16 +45,15 @@ var app = app || {};
                 imgItems.push( this.tpl(photo.toJSON()) );
             }, this);
             //this.$el.append(imgItems);
-            this.$gallery.append(imgItems);
+            this.$thumbnails.append(imgItems);
         },
 
         loadMore: function() {
             // scrollPosition keeps increasing when scrolling down
             var scrollPosition = $(window).height() + $(window).scrollTop();
-            //console.info(scrollPosition);
 
             if ( scrollPosition == this.$el.height() ) {
-                this.$gallery.ajaxMask();
+                this.$thumbnails.ajaxMask();
                 this._curPage += 1;
                 // fetch next page of photos, will automatically call
                 // collection.set when response is returned successfully
@@ -69,21 +74,41 @@ var app = app || {};
          * can do some post processing here
          *
          * @param {Collection} photos that issues 'fetch' request
-         * @param {JSON} resp that returned
-         * @param {Object} options that used in request
+         * @param {JSON} resp that returned by flickr api
+         * @param {Object} options that used in collection.fetch
          */
         onSync: function(photos, resp, options) {
             console.dir('photoes fetched');
-            this.$gallery.ajaxMask( {stop: true} );
+            this.$thumbnails.ajaxMask( {stop: true} );
         },
 
         onAdd: function(photo, photos, options) {
             console.dir('photo model added to collection');
-            this.$gallery.append( this.tpl(photo.toJSON()) );
+            this.$thumbnails.append( this.tpl(photo.toJSON()) );
         },
 
-        onSlide: function() {
-            //
+        onSlide: function(e, idx, slide) {
+            var photo = this.collection.at(idx);
+            if (photo.get('author') != undefined) {
+                this.renderPhotoInfo(photo);
+                return;
+            }
+            // fetch the photo info
+            photo.fetch({
+                //success: function(photo, resp, options) {
+                //}
+            });
+            //photo.fetchFaves();
+        },
+
+        // render info for the photo currently showing
+        renderPhotoInfo: function(photo) {
+            var author = photo.get('author');
+            var pstreamUrl = ['https://www.flickr.com/photos/', photo.get('nsid')].join('');
+            console.dir(author);
+            this.$galleryAuthor
+                .text('by ' + author).attr('href', pstreamUrl);
+            this.$photoViews.text( photo.get('views') + ' views')
         }
     });
     

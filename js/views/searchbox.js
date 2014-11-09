@@ -27,7 +27,7 @@ var app = app || {};
                 //alert('tags needed');
                 return;
             }
-            app.flickrGallery.$gallery.ajaxMask();
+            app.flickrGallery.$thumbnails.ajaxMask();
             // fetch photos for the searched tags
             app.photos.fetch({
                 reset: true,

@@ -11,10 +11,10 @@
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-  <header class="navbar navbar-static-top" role="banner">
+  <header class="navbar navbar-fixed-top" role="banner">
       <div id='search-box' class="col-md-12">
          <span class="heading-text">#</span>
-         <input type="text" class="hashtag heading-text" placeholder="Search" />
+         <input type="text" class="hashtag heading-text" placeholder="Search by tags" />
      </div>
   </header>
 
@@ -23,7 +23,7 @@
     <div id="thumbnails">
       <script type="text/template" id="thumbnail-tpl">
        <a href="<%= link %>" title="<%= title %>" data-gallery>
-         <img src="<%= imgUrl %>">
+         <img src="<%= imgUrl %>" class="" alt="">
        </a>
       </script>
     </div>
@@ -39,10 +39,17 @@
       <div class="slides"></div>
       <!-- Controls for the borderless lightbox -->
       <h3 class="title"></h3>
+      <!--script type="text/template" id="photoinfo-tpl">-->
+        <a href="#" target="_blank" class="author"></a>
+      <!-- </script> -->
       <a class="prev">‹</a>
       <a class="next">›</a>
       <a class="close">×</a>
       <a class="play-pause"></a>
+      <a class="btn btn-default views">
+         <span class="glyphicon glyphicon-eye-open"></span>
+         <span class="vnumber"></span>
+      </a>
       <ol class="indicator"></ol>
       <!-- The modal dialog, which will be used to wrap the lightbox content -->
   </div>
