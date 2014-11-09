@@ -1,6 +1,6 @@
 body{
     background-color: #222;
-    padding-top: 70px; /* make some space with fixed top navbar */
+    padding-top: 65px; /* make some space with fixed top navbar */
 }
 
 input.hashtag{
@@ -13,7 +13,7 @@ input.hashtag{
   background-color: #222;
 }
 .heading-text{
-  font-size: 40px;
+  font-size: 35px;
   font-weight:200;
   font-family: 'Raleway', sans-serif;
   letter-spacing: -1px;
@@ -41,6 +41,9 @@ input.hashtag{
   -moz-opacity: 0.9;
 }
 
+#thumbnails img {
+    float: left; /* remove space between images */
+}
 #blueimp-gallery .author {
     position: absolute;
     top: 30px;
