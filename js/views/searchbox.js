@@ -33,7 +33,7 @@ var app = app || {};
             app.photos.fetch({
                 reset: true,
                 params: {
-                    page: 1,
+                    page: 1, per_page: 100,
                     tags: tags, tag_mode: 'all'
                 }
             });
