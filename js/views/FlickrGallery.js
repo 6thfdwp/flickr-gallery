@@ -8,7 +8,6 @@ var app = app || {};
     var FlickrGallery = Backbone.View.extend({
         el: $(document),
         tpl: _.template( $('#thumbnail-tpl').html() ),
-        //photoInfoTpl: _.template( $('#photoinfo-tpl').html() ),
 
         events: {
             'scroll': 'loadMore',
@@ -30,7 +29,10 @@ var app = app || {};
 
             this.$thumbnails.ajaxMask();
             // initial fetching when page first loaded
-            app.photos.fetch({reset: true});
+            app.photos.fetch({
+                reset: true,
+                params: {per_page: 200}
+            });
         },
 
         /**
@@ -61,6 +63,7 @@ var app = app || {};
                 this.collection.fetch({
                     remove: false,
                     params: {
+                        per_page: 50,
                         page: this._curPage
                     },
                 });

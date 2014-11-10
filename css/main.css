@@ -65,7 +65,7 @@ input.hashtag{
     margin-left: 5px;
 }
 
-.spinner {
+.spinner, .load-more {
     position: absolute;
     bottom: 0px;
     left: 50%;
